@@ -27,7 +27,7 @@ public class Controller {
     @PostMapping(value = "/all")
     public ArrayList getAllUser() {
         System.out.println("Prende tutti gli utenti");
-        String url = "http://localhost:8081/api/v1/users";
+        String url = "http://microserviceuser:8081/api/v1/users";
         return this.restTemplate.getForObject(url, ArrayList.class);
     }
 
