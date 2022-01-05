@@ -34,7 +34,7 @@ public class Controller {
     @PostMapping(value = "/create")
     public ResponseEntity<UserAndData> createUserData(@RequestBody User user) {
         System.out.println("Create a new user");
-        String url = "http://localhost:8081/api/v1/users/create";
+        String url = "http://microserviceuser:8081/api/v1/users/create";
 
         ResponseEntity<User> response1 = this.restTemplate.postForEntity(url, user, User.class);
 
@@ -43,7 +43,9 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        String url2 = "http://localhost:8082/api/v2/data/newuser";
+        System.out.println("Create Document");
+
+        String url2 = "http://microservicedata:8082/api/v2/data/newuser";
         ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
 
         // check response status code
