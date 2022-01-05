@@ -2,6 +2,7 @@ package com.example.TaassApiGateway.Controller;
 
 import com.example.TaassApiGateway.Model.User;
 import com.example.TaassApiGateway.Model.UserAndData;
+import com.example.TaassApiGateway.Model.UserModifier;
 import com.example.TaassApiGateway.Model.userData;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,11 @@ public class Controller {
         return this.restTemplate.getForObject(url, ArrayList.class);
     }
 
+
+    /*
+     *  questa verra chiamata alla creazione di un utente sul sito
+     *  crea l'utente sul primo microservizio e crea i suoi dati sull'altro daatabase
+     */
     @PostMapping(value = "/create")
     public ResponseEntity<UserAndData> createUserData(@RequestBody User user) {
         System.out.println("Create a new user");
@@ -56,11 +62,107 @@ public class Controller {
         UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
 
         return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
-
-
-
     }
 
+    @PostMapping(value = "/createGoogle")
+    public ResponseEntity<UserAndData> createUserDataGoogle(@RequestBody User user) {
+        System.out.println("Create a new user");
+        String url = "http://microserviceuser:8081/api/v1/users/createGoogle";
+
+        ResponseEntity<User> response1 = this.restTemplate.postForEntity(url, user, User.class);
+
+        // check response status code
+        if (response1.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        System.out.println("Create Document");
+
+        String url2 = "http://microservicedata:8082/api/v2/data/newuser";
+        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+
+        // check response status code
+        if (response2.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
+
+        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+    }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<UserAndData> loginUserData(@RequestBody User user) {
+
+        System.out.println("Login user");
+        String url = "http://microserviceuser:8081/api/v1/users/login";
+
+        ResponseEntity<User> response1 = this.restTemplate.postForEntity(url, user, User.class);
+
+        // check response status code
+        if (response1.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        System.out.println("User Loged :" + response1.getBody());
+
+        System.out.println("Get Document for id :" + String.valueOf(response1.getBody().getId()));
+
+        String url2 = "http://microservicedata:8082/api/v2/data/document";
+        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+
+        // check response status code
+        if (response2.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
+
+        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+    }
+
+    @PostMapping(value = "/loginGoogle")
+    public ResponseEntity<UserAndData> loginUserDataGoogle(@RequestBody User user) {
+
+        System.out.println("Login Google user");
+        String url = "http://microserviceuser:8081/api/v1/users/loginGoogle";
+
+        ResponseEntity<User> response1 = this.restTemplate.postForEntity(url, user, User.class);
+
+        // check response status code
+        if (response1.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        System.out.println("Get Document");
+
+        String url2 = "http://microservicedata:8082/api/v2/data/document";
+        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+
+        // check response status code
+        if (response2.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
+
+        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+    }
+
+    @PostMapping(value = "/changePassword")
+    public ResponseEntity<String> getAllUser(@RequestBody UserModifier userModifier) {
+
+        System.out.println("Cambio Password");
+        String url = "http://microserviceuser:8081/api/v1/users/changePassword";
+
+        ResponseEntity<UserModifier> response = this.restTemplate.postForEntity(url,userModifier, UserModifier.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("password changed", HttpStatus.OK);
+    }
 
 
 }
