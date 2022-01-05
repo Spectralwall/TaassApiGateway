@@ -1,9 +1,6 @@
 package com.example.TaassApiGateway.Controller;
 
-import com.example.TaassApiGateway.Model.User;
-import com.example.TaassApiGateway.Model.UserAndData;
-import com.example.TaassApiGateway.Model.UserModifier;
-import com.example.TaassApiGateway.Model.userData;
+import com.example.TaassApiGateway.Model.*;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+//TODO metodo di delete
+//TODO metodo per creare un nuovo topic
+//TODO metodo per creare una nuova registrazione
+//TODO metodo per cancellare una registrazione
+//TODO metodo per cancellare un topic
+//TODO metodo modificre share topic
+//TODO metodo modificre ritornare gli share topic
+//TODO metodo modificre nome topic
+
 
 @RestController
 @RequestMapping("/gateway")
@@ -134,7 +142,9 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        System.out.println("Get Document");
+        System.out.println("User Loged :" + response1.getBody());
+
+        System.out.println("Get Document for id :" + String.valueOf(response1.getBody().getId()));
 
         String url2 = "http://microservicedata:8082/api/v2/data/document";
         ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
@@ -150,7 +160,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/changePassword")
-    public ResponseEntity<String> getAllUser(@RequestBody UserModifier userModifier) {
+    public ResponseEntity<String> changePassword(@RequestBody UserModifier userModifier) {
 
         System.out.println("Cambio Password");
         String url = "http://microserviceuser:8081/api/v1/users/changePassword";
@@ -164,5 +174,30 @@ public class Controller {
         return new ResponseEntity<>("password changed", HttpStatus.OK);
     }
 
+    @PostMapping(value = "/newTopic")
+    public ResponseEntity<String> newTopics(@RequestBody newTopic newTopic) {
+
+        System.out.println("Nuovo Topic");
+        String url = "http://microservicedata:8082/api/v2/data/newTopic";
+
+        ResponseEntity<newTopic> response = this.restTemplate.postForEntity(url,newTopic, newTopic.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>("name of topic taken", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("topic add", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/topicUser")
+    public ResponseEntity<userData> topicUser(@RequestBody userData user) {
+
+        System.out.println("Ritorno topic");
+        String url = "http://microservicedata:8082/api/v2/data/topics";
+
+        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,user, userData.class);
+
+        return response;
+    }
 
 }
