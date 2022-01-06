@@ -14,13 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+//da scrivere
 //TODO metodo di delete
-//TODO metodo per creare una nuova registrazione
-//TODO metodo per cancellare una registrazione
-//TODO metodo per cancellare un topic
-//TODO metodo modificre share topic
-//TODO metodo modificre ritornare gli share topic
-//TODO metodo modificre nome topic
+
 
 
 @RestController
@@ -128,7 +124,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/loginGoogle")
-    public ResponseEntity<UserAndData> loginUserDataGoogle(@RequestBody User user) {
+    public ResponseEntity<String> loginUserDataGoogle(@RequestBody User user) {
 
         System.out.println("Login Google user");
         String url = "http://microserviceuser:8081/api/v1/users/loginGoogle";
@@ -145,16 +141,14 @@ public class Controller {
         System.out.println("Get Document for id :" + String.valueOf(response1.getBody().getId()));
 
         String url2 = "http://microservicedata:8082/api/v2/data/document";
-        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+        ResponseEntity<String> response2 = this.restTemplate.postForEntity(url2, response1.getBody(), String.class);
 
         // check response status code
         if (response2.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
-
-        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(response2.getBody(), HttpStatus.CONFLICT);
     }
 
     @PostMapping(value = "/changePassword")
@@ -205,6 +199,81 @@ public class Controller {
         ResponseEntity<String> response = this.restTemplate.postForEntity(url,newReg, String.class);
 
         System.out.println("user data : " + response.getBody());
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/delReg")
+    public ResponseEntity<String> deleteRegsitration(@RequestBody deleteReg deleteReg) {
+
+        System.out.println("Cancello Registrazione : " + deleteReg);
+        String url = "http://microservicedata:8082/api/v2/data/deleteReg";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,deleteReg, String.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/delTopic")
+    public ResponseEntity<String> deleteTopic(@RequestBody deleteTopic delete) {
+
+        System.out.println("Cancello Topic : " + delete);
+        String url = "http://microservicedata:8082/api/v2/data/deleteTopic";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,delete, String.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/sharedTopic")
+    public ResponseEntity<String> sharedTopic() {
+
+        System.out.println("ritorno i topic Condivisi ");
+        String url = "http://microservicedata:8082/api/v2/data/sharedTopic";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,null ,String.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/changSharedTopic")
+    public ResponseEntity<String> changSharedTopic(@RequestBody deleteTopic delete) {
+
+        System.out.println("modifico condivisione del topic " + delete.getName() + " dell'utente :" + delete.getId());
+        String url = "http://microservicedata:8082/api/v2/data/changSharedTopic";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,delete, String.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/changeNameTopic")
+    public ResponseEntity<String> changeNameTopic(@RequestBody deleteTopic delete) {
+
+        System.out.println("modifico nome del topic " + delete.getName() + " dell'utente :" + delete.getId());
+        String url = "http://microservicedata:8082/api/v2/data/changeNameTopic";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,delete, String.class);
 
         if (response.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
