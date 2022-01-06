@@ -14,7 +14,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //TODO metodo di delete
-//TODO metodo per creare un nuovo topic
 //TODO metodo per creare una nuova registrazione
 //TODO metodo per cancellare una registrazione
 //TODO metodo per cancellare un topic
@@ -190,14 +189,29 @@ public class Controller {
     }
 
     @PostMapping(value = "/topicUser")
-    public ResponseEntity<userData> topicUser(@RequestBody userData user) {
+    public ResponseEntity<String> topicUser(@RequestBody userData user) {
 
         System.out.println("Ritorno topic");
         String url = "http://microservicedata:8082/api/v2/data/topics";
 
-        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,user, userData.class);
+        return this.restTemplate.postForEntity(url,user, String.class);
+    }
 
-        return response;
+    @PostMapping(value = "/newReg")
+    public ResponseEntity<String> newTopics(@RequestBody newRegistration newReg) {
+
+        System.out.println("Nuova Registrazione : " + newReg);
+        String url = "http://microservicedata:8082/api/v2/data/newRegi";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newReg, String.class);
+
+        System.out.println("user data : " + response.getBody());
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
     }
 
 }

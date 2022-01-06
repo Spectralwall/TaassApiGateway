@@ -1,6 +1,8 @@
 package com.example.TaassApiGateway.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,17 +10,21 @@ import java.util.ArrayList;
 
 public class registration implements Serializable {
 
-
+    @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("creationDate")
     private LocalDate creationDate;
 
+    @JsonProperty("typeNameRegistration")
     private ArrayList<sourceDataInterface> typeNameRegistration;
 
     public registration(ArrayList<sourceDataInterface> val){
         this.creationDate = LocalDate.now();
         this.typeNameRegistration = val;
     }
+
+    public registration(){}
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;

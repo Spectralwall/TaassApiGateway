@@ -1,6 +1,8 @@
 package com.example.TaassApiGateway.Model;
 
-public interface sourceDataInterface<T> {
+import java.io.Serializable;
+
+public interface sourceDataInterface<T> extends Serializable {
     abstract T getData();
     abstract void setData(T val);
 }
