@@ -1,6 +1,7 @@
 package com.example.TaassApiGateway.Controller;
 
 import com.example.TaassApiGateway.Model.*;
+import com.google.gson.Gson;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,7 +100,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserAndData> loginUserData(@RequestBody User user) {
+    public ResponseEntity<String> loginUserData(@RequestBody User user) {
 
         System.out.println("Login user");
         String url = "http://microserviceuser:8081/api/v1/users/login";
@@ -116,16 +117,14 @@ public class Controller {
         System.out.println("Get Document for id :" + String.valueOf(response1.getBody().getId()));
 
         String url2 = "http://microservicedata:8082/api/v2/data/document";
-        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+        ResponseEntity<String> response2 = this.restTemplate.postForEntity(url2, response1.getBody(), String.class);
 
         // check response status code
         if (response2.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
-
-        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(response2.getBody(), HttpStatus.CONFLICT);
     }
 
     @PostMapping(value = "/loginGoogle")
@@ -179,13 +178,13 @@ public class Controller {
         System.out.println("Nuovo Topic");
         String url = "http://microservicedata:8082/api/v2/data/newTopic";
 
-        ResponseEntity<newTopic> response = this.restTemplate.postForEntity(url,newTopic, newTopic.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newTopic, String.class);
 
         if (response.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>("name of topic taken", HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>("topic add", HttpStatus.OK);
+        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/topicUser")
