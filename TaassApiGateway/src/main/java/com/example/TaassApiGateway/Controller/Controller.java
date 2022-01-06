@@ -282,4 +282,30 @@ public class Controller {
         return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/deleteUser")
+    public ResponseEntity<String> deleteAll(@RequestBody User user) {
+
+        System.out.println("Delete user :" + user.getEmail());
+        String url = "http://microserviceuser:8081/api/v1/users/deleteUser";
+
+        ResponseEntity<String> response1 = this.restTemplate.postForEntity(url, user, String.class);
+
+        // check response status code
+        if (response1.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>("problema micro servizio utente", HttpStatus.CONFLICT);
+        }
+
+
+        System.out.println("eliminazione dati per utente : " + user.getEmail());
+        String url2 = "http://microservicedata:8082/api/v2/data/deleteUser";
+
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url2,user, String.class);
+
+        if (response.getStatusCode() == HttpStatus.CONFLICT) {
+            return new ResponseEntity<>("problema micro servizio dati", HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>("eliminazione utente e dati corretta ", HttpStatus.OK);
+    }
+
 }
