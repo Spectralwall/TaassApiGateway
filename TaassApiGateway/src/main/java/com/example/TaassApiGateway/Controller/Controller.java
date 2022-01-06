@@ -65,7 +65,7 @@ public class Controller {
 
         UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
 
-        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(userAndData, HttpStatus.OK);
     }
 
     @PostMapping(value = "/createGoogle")
@@ -92,7 +92,7 @@ public class Controller {
 
         UserAndData userAndData = new UserAndData(response1.getBody(),response2.getBody());
 
-        return new ResponseEntity<>(userAndData, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(userAndData, HttpStatus.OK);
     }
 
     @PostMapping(value = "/login")
@@ -120,7 +120,7 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>(response2.getBody(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(response2.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/loginGoogle")
@@ -148,7 +148,7 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>(response2.getBody(), HttpStatus.CONFLICT);
+        return new ResponseEntity<>(response2.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/changePassword")
