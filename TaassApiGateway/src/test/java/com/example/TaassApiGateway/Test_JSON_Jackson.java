@@ -75,6 +75,7 @@ public class Test_JSON_Jackson {
         String jsonString = null;
         try {
             jsonString = mapper.writeValueAsString(userData);
+            System.out.println(jsonString);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

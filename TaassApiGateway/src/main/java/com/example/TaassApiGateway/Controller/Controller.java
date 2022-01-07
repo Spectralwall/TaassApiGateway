@@ -192,12 +192,12 @@ public class Controller {
     }
 
     @PostMapping(value = "/topicUser")
-    public ResponseEntity<UserData> topicUser(@RequestBody UserData user) {
+    public ResponseEntity<String> topicUser(@RequestBody UserData user) {
 
         System.out.println("Ritorno topic");
         String url = "http://microservicedata:8082/api/v2/data/topics";
 
-        return this.restTemplate.postForEntity(url,user, UserData.class);
+        return this.restTemplate.postForEntity(url,user, String.class);
     }
 
     @PostMapping(value = "/newReg")
