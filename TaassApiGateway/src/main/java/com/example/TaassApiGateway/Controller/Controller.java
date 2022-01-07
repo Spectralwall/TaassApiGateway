@@ -58,6 +58,14 @@ public class Controller {
         String url2 = "http://microservicedata:8082/api/v2/data/newuser";
         ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
 
+        System.out.println("RESPONSE 1");
+        System.out.println(response1);
+        System.out.println(response1.getBody());
+
+        System.out.println("RESPONSE 2");
+        System.out.println(response2);
+        System.out.println(response2.getBody());
+
         // check response status code
         if (response2.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
@@ -167,38 +175,46 @@ public class Controller {
     }
 
     @PostMapping(value = "/newTopic")
-    public ResponseEntity<String> newTopics(@RequestBody newTopic newTopic) {
+    public ResponseEntity<userData> newTopics(@RequestBody newTopic newTopic) {
 
         System.out.println("Nuovo Topic");
         String url = "http://microservicedata:8082/api/v2/data/newTopic";
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newTopic, String.class);
+        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,newTopic, userData.class);
+
+        System.out.println("RESPONSE");
+        System.out.println(response);
+        System.out.println(response.getBody());
 
         if (response.getStatusCode() == HttpStatus.CONFLICT) {
-            return new ResponseEntity<>("name of topic taken", HttpStatus.CONFLICT);
+            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
+        return new ResponseEntity<userData>(response.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/topicUser")
-    public ResponseEntity<String> topicUser(@RequestBody userData user) {
+    public ResponseEntity<userData> topicUser(@RequestBody userData user) {
 
         System.out.println("Ritorno topic");
         String url = "http://microservicedata:8082/api/v2/data/topics";
 
-        return this.restTemplate.postForEntity(url,user, String.class);
+        return this.restTemplate.postForEntity(url,user, userData.class);
     }
 
     @PostMapping(value = "/newReg")
-    public ResponseEntity<String> newTopics(@RequestBody newRegistration newReg) {
+    public ResponseEntity<userData> newReg(@RequestBody newRegistration newReg) {
 
         System.out.println("Nuova Registrazione : " + newReg);
         String url = "http://microservicedata:8082/api/v2/data/newRegi";
 
-        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newReg, String.class);
+        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,newReg, userData.class);
 
         System.out.println("user data : " + response.getBody());
+
+        System.out.println("RESPONSE");
+        System.out.println(response);
+        System.out.println(response.getBody());
 
         if (response.getStatusCode() == HttpStatus.CONFLICT) {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
