@@ -5,9 +5,7 @@ package com.example.TaassApiGateway.Model;
  * durante la registrazione di un  nuovo topic
  */
 
-import java.io.Serializable;
-
-public class DataInfoPair implements Serializable {
+public class DataInfoPair {
 
     private String name;
 

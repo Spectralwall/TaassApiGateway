@@ -1,8 +1,6 @@
 package com.example.TaassApiGateway.Model;
 
-import java.io.Serializable;
-
-public class UserAndData implements Serializable {
+public class UserAndData {
 
     private User userInformation;
     private UserData dataInformation;

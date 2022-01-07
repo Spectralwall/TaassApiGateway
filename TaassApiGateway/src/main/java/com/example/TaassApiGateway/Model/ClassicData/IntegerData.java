@@ -2,15 +2,12 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 import com.example.TaassApiGateway.Model.SourceDataInterface;
 
-
-import java.io.Serializable;
-
 // classe pe trattare dati di tipo integer
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class IntegerData implements SourceDataInterface, Serializable {
+public class IntegerData implements SourceDataInterface {
 
     //come attributo abbiamo un Integer ovvero la classe wrapper di int
     //cosi possimo sfruttare tutti i supi metodi

@@ -2,15 +2,12 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 import com.example.TaassApiGateway.Model.SourceDataInterface;
 
-
-import java.io.Serializable;
-
 // classe pe trattare dati di tipo float
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class ShortData implements SourceDataInterface, Serializable {
+public class ShortData implements SourceDataInterface {
 
     private Short val;
 

@@ -1,11 +1,8 @@
 package com.example.TaassApiGateway.Model;
 
-
-
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NewRegistration implements Serializable {
+public class NewRegistration {
 
     private String userId;
 

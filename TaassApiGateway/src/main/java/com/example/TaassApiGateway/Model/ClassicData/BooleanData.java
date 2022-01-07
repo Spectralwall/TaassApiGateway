@@ -3,7 +3,6 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 
 import com.example.TaassApiGateway.Model.SourceDataInterface;
-import java.io.Serializable;
 
 import com.example.TaassApiGateway.Model.Topic;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -11,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class BooleanData implements SourceDataInterface, Serializable {
+public class BooleanData implements SourceDataInterface {
     private Boolean val;
 
     public BooleanData(boolean x){

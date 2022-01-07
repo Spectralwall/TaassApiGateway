@@ -2,8 +2,6 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 import com.example.TaassApiGateway.Model.SourceDataInterface;
 
-import java.io.Serializable;
-
 // classe pe trattare dati di tipo char
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

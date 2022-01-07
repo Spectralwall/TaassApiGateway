@@ -1,8 +1,7 @@
 package com.example.TaassApiGateway.Model;
 
-import java.io.Serializable;
 
-public class UserModifier implements Serializable {
+public class UserModifier {
 
     public UserModifier(){}
 

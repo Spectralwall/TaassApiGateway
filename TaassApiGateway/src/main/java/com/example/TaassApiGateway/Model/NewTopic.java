@@ -1,9 +1,8 @@
 package com.example.TaassApiGateway.Model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class NewTopic implements Serializable {
+public class NewTopic {
 
     private String id;
 
