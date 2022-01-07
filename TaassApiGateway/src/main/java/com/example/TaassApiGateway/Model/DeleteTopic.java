@@ -1,7 +1,6 @@
 package com.example.TaassApiGateway.Model;
 
 public class DeleteTopic {
-
     private String id;
 
     private String name;

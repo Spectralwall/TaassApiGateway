@@ -2,18 +2,20 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 import com.example.TaassApiGateway.Model.SourceDataInterface;
 
-
 import java.io.Serializable;
 
 // classe pe trattare dati di tipo char
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class StringData implements SourceDataInterface, Serializable {
+public class StringData implements SourceDataInterface {
 
     // in questo caso non abbiamo un wrapper ma direttamente la classe String
     private String val;
 
-    public StringData(String x){
+    @JsonCreator
+    public StringData(@JsonProperty("val")String x) {
         this.val = x;
     }
 
@@ -30,5 +32,27 @@ public class StringData implements SourceDataInterface, Serializable {
     @Override
     public String toString() {
         return val;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean res = true;
+
+        if((obj != null) && (obj.getClass().equals(this.getClass()))) {
+            StringData castedObj = (StringData) obj;
+
+            //check val
+            if((val != null) && (castedObj.getData() != null)) {
+                if(!val.equals(castedObj.getData())) {
+                    res = false;
+                }
+            } else if(!((val == null) && (castedObj.getData() == null))) {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+
+        return res;
     }
 }

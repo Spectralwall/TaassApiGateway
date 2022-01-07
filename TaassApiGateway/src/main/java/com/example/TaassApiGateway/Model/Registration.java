@@ -1,6 +1,7 @@
 package com.example.TaassApiGateway.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 
 
 public class Registration implements Serializable {
-
     @JsonProperty("id")
     private Long id;
 
@@ -23,13 +23,22 @@ public class Registration implements Serializable {
     private LocalDate creationDate;
 
     @JsonProperty("typeNameRegistration")
-    private ArrayList<TypeNameReg<?>> typeNameRegistration;
+    private ArrayList<SourceDataInterface> typeNameRegistration;
 
     public Registration(){
         super();
     }
 
-    public Registration(ArrayList<TypeNameReg<?>> val){
+    @JsonCreator
+    public Registration(@JsonProperty("id")Long id,
+                        @JsonProperty("creationDate")LocalDate creationDate,
+                        @JsonProperty("typeNameRegistration")ArrayList<SourceDataInterface> typeNameRegistration) {
+        this.id = id;
+        this.creationDate = creationDate;
+        this.typeNameRegistration = typeNameRegistration;
+    }
+
+    public Registration(ArrayList<SourceDataInterface> val){
         this.creationDate = LocalDate.now();
         this.typeNameRegistration = val;
     }
@@ -42,11 +51,11 @@ public class Registration implements Serializable {
         return creationDate;
     }
 
-    public ArrayList<TypeNameReg<?>> getTypeNameRegistration() {
+    public ArrayList<SourceDataInterface> getTypeNameRegistration() {
         return typeNameRegistration;
     }
 
-    public void setTypeNameRegistration(ArrayList<TypeNameReg<?>> typeNameRegistration) {
+    public void setTypeNameRegistration(ArrayList<SourceDataInterface> typeNameRegistration) {
         this.typeNameRegistration = typeNameRegistration;
     }
 
@@ -65,5 +74,45 @@ public class Registration implements Serializable {
                 ", creationDate=" + creationDate +
                 ", typeNameRegistration=" + typeNameRegistration +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean res = true;
+
+        if((obj != null) && (obj.getClass().equals(this.getClass()))) {
+            Registration castedObj = (Registration) obj;
+
+            //check id
+            if((id != null) && (castedObj.getId() != null)) {
+                if(!id.equals(castedObj.getId())) {
+                    res = false;
+                }
+            } else if(!((id == null) && (castedObj.getId() == null))) {
+                res = false;
+            }
+
+            //check creationDate
+            if((creationDate != null) && (castedObj.getCreationDate() != null)) {
+                if(!creationDate.equals(castedObj.getCreationDate())) {
+                    res = false;
+                }
+            } else if(!((creationDate == null) && (castedObj.getCreationDate() == null))) {
+                res = false;
+            }
+
+            //check typeNameRegistration
+            if((typeNameRegistration != null) && (castedObj.getTypeNameRegistration() != null)) {
+                if(!typeNameRegistration.equals(castedObj.getTypeNameRegistration())) {
+                    res = false;
+                }
+            } else if(!((typeNameRegistration == null) && (castedObj.getTypeNameRegistration() == null))) {
+                res = false;
+            }
+        } else {
+            res = false;
+        }
+
+        return res;
     }
 }
