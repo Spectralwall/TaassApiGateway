@@ -4,7 +4,7 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 
 
-import com.example.TaassApiGateway.Model.sourceDataInterface;
+import com.example.TaassApiGateway.Model.SourceDataInterface;
 
 import java.io.Serializable;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class ByteData implements sourceDataInterface, Serializable {
+public class ByteData implements SourceDataInterface, Serializable {
 
     private Byte val;
 

@@ -3,7 +3,7 @@ package com.example.TaassApiGateway.Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class newTopic implements Serializable {
+public class NewTopic implements Serializable {
 
     private String id;
 
@@ -11,7 +11,7 @@ public class newTopic implements Serializable {
 
     private String description;
 
-    private ArrayList<dataInfoPair> nameType;
+    private ArrayList<DataInfoPair> nameType;
 
     private ArrayList<String> color;
 
@@ -34,7 +34,7 @@ public class newTopic implements Serializable {
         return color;
     }
 
-    public ArrayList<dataInfoPair> getNameType() {
+    public ArrayList<DataInfoPair> getNameType() {
         return nameType;
     }
 

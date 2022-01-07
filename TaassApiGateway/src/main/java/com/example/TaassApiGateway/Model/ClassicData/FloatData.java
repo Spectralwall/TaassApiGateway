@@ -1,6 +1,6 @@
 package com.example.TaassApiGateway.Model.ClassicData;
 
-import com.example.TaassApiGateway.Model.sourceDataInterface;
+import com.example.TaassApiGateway.Model.SourceDataInterface;
 
 
 import java.io.Serializable;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 // classe pe trattare dati di tipo float
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class FloatData implements sourceDataInterface, Serializable {
+public class FloatData implements SourceDataInterface, Serializable {
 
     private Float val;
 

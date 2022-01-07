@@ -13,21 +13,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class userData implements Serializable {
+public class UserData implements Serializable {
 
 
     private String id;
 
     private String idUser;
 
-    private ArrayList<topic> topicList;
+    private ArrayList<Topic> topicList;
 
-    public userData(String Userid){
+    public UserData(String Userid){
         this.idUser = Userid;
         this.topicList = new ArrayList<>();
     }
 
-    public userData(String idUser, ArrayList<topic> topic){
+    public UserData(String idUser, ArrayList<Topic> topic){
         this.idUser = idUser;
         this.topicList = topic;
     }
@@ -36,7 +36,7 @@ public class userData implements Serializable {
         this.idUser = idUser;
     }
 
-    public void setTopicList(ArrayList<topic> topicList) {
+    public void setTopicList(ArrayList<Topic> topicList) {
         this.topicList = topicList;
     }
 
@@ -48,7 +48,7 @@ public class userData implements Serializable {
         return idUser;
     }
 
-    public ArrayList<topic> getTopicList() {
+    public ArrayList<Topic> getTopicList() {
         return topicList;
     }
 

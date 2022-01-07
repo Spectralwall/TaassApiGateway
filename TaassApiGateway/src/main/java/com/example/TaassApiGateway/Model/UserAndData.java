@@ -5,16 +5,16 @@ import java.io.Serializable;
 public class UserAndData implements Serializable {
 
     private User userInformation;
-    private userData dataInformation;
+    private UserData dataInformation;
 
-    public UserAndData(User user, userData userData){
+    public UserAndData(User user, UserData userData){
         this.dataInformation = userData;
         this.userInformation = user;
     }
 
 
 
-    public void setDataInformation(userData dataInformation) {
+    public void setDataInformation(UserData dataInformation) {
         this.dataInformation = dataInformation;
     }
 
@@ -22,7 +22,7 @@ public class UserAndData implements Serializable {
         return userInformation;
     }
 
-    public userData getDataInformation() {
+    public UserData getDataInformation() {
         return dataInformation;
     }
 

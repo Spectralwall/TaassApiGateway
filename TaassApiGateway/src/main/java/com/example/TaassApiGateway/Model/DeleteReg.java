@@ -1,6 +1,6 @@
 package com.example.TaassApiGateway.Model;
 
-public class deleteReg {
+public class DeleteReg {
 
     private String idUser;
 

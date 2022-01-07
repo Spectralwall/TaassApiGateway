@@ -1,7 +1,6 @@
 package com.example.TaassApiGateway.Controller;
 
 import com.example.TaassApiGateway.Model.*;
-import com.google.gson.Gson;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //da scrivere
@@ -56,7 +54,7 @@ public class Controller {
         System.out.println("Create Document");
 
         String url2 = "http://microservicedata:8082/api/v2/data/newuser";
-        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+        ResponseEntity<UserData> response2 = this.restTemplate.postForEntity(url2, new UserData(String.valueOf(response1.getBody().getId())), UserData.class);
 
         System.out.println("RESPONSE 1");
         System.out.println(response1);
@@ -91,7 +89,7 @@ public class Controller {
         System.out.println("Create Document");
 
         String url2 = "http://microservicedata:8082/api/v2/data/newuser";
-        ResponseEntity<userData> response2 = this.restTemplate.postForEntity(url2, new userData(String.valueOf(response1.getBody().getId())), userData.class);
+        ResponseEntity<UserData> response2 = this.restTemplate.postForEntity(url2, new UserData(String.valueOf(response1.getBody().getId())), UserData.class);
 
         // check response status code
         if (response2.getStatusCode() == HttpStatus.CONFLICT) {
@@ -175,12 +173,12 @@ public class Controller {
     }
 
     @PostMapping(value = "/newTopic")
-    public ResponseEntity<userData> newTopics(@RequestBody newTopic newTopic) {
+    public ResponseEntity<UserData> newTopics(@RequestBody NewTopic newTopic) {
 
         System.out.println("Nuovo Topic");
         String url = "http://microservicedata:8082/api/v2/data/newTopic";
 
-        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,newTopic, userData.class);
+        ResponseEntity<UserData> response = this.restTemplate.postForEntity(url,newTopic, UserData.class);
 
         System.out.println("RESPONSE");
         System.out.println(response);
@@ -190,25 +188,25 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<userData>(response.getBody(), HttpStatus.OK);
+        return new ResponseEntity<UserData>(response.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/topicUser")
-    public ResponseEntity<userData> topicUser(@RequestBody userData user) {
+    public ResponseEntity<UserData> topicUser(@RequestBody UserData user) {
 
         System.out.println("Ritorno topic");
         String url = "http://microservicedata:8082/api/v2/data/topics";
 
-        return this.restTemplate.postForEntity(url,user, userData.class);
+        return this.restTemplate.postForEntity(url,user, UserData.class);
     }
 
     @PostMapping(value = "/newReg")
-    public ResponseEntity<userData> newReg(@RequestBody newRegistration newReg) {
+    public ResponseEntity<UserData> newReg(@RequestBody NewRegistration newReg) {
 
         System.out.println("Nuova Registrazione : " + newReg);
         String url = "http://microservicedata:8082/api/v2/data/newRegi";
 
-        ResponseEntity<userData> response = this.restTemplate.postForEntity(url,newReg, userData.class);
+        ResponseEntity<UserData> response = this.restTemplate.postForEntity(url,newReg, UserData.class);
 
         System.out.println("user data : " + response.getBody());
 
@@ -224,7 +222,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/delReg")
-    public ResponseEntity<String> deleteRegsitration(@RequestBody deleteReg deleteReg) {
+    public ResponseEntity<String> deleteRegsitration(@RequestBody DeleteReg deleteReg) {
 
         System.out.println("Cancello Registrazione : " + deleteReg);
         String url = "http://microservicedata:8082/api/v2/data/deleteReg";
@@ -239,7 +237,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/delTopic")
-    public ResponseEntity<String> deleteTopic(@RequestBody deleteTopic delete) {
+    public ResponseEntity<String> deleteTopic(@RequestBody DeleteTopic delete) {
 
         System.out.println("Cancello Topic : " + delete);
         String url = "http://microservicedata:8082/api/v2/data/deleteTopic";
@@ -269,7 +267,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/changSharedTopic")
-    public ResponseEntity<String> changSharedTopic(@RequestBody deleteTopic delete) {
+    public ResponseEntity<String> changSharedTopic(@RequestBody DeleteTopic delete) {
 
         System.out.println("modifico condivisione del topic " + delete.getName() + " dell'utente :" + delete.getId());
         String url = "http://microservicedata:8082/api/v2/data/changSharedTopic";
@@ -284,7 +282,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/changeNameTopic")
-    public ResponseEntity<String> changeNameTopic(@RequestBody deleteTopic delete) {
+    public ResponseEntity<String> changeNameTopic(@RequestBody DeleteTopic delete) {
 
         System.out.println("modifico nome del topic " + delete.getName() + " dell'utente :" + delete.getId());
         String url = "http://microservicedata:8082/api/v2/data/changeNameTopic";

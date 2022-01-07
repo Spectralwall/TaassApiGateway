@@ -2,11 +2,11 @@ package com.example.TaassApiGateway.Model.ClassicData;
 
 
 
-import com.example.TaassApiGateway.Model.sourceDataInterface;
+import com.example.TaassApiGateway.Model.SourceDataInterface;
 import java.io.Serializable;
 import lombok.NoArgsConstructor;
 @NoArgsConstructor
-public class BooleanData implements sourceDataInterface, Serializable {
+public class BooleanData implements SourceDataInterface, Serializable {
 
     private Boolean val;
 

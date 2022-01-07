@@ -5,7 +5,7 @@ package com.example.TaassApiGateway.Model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class newRegistration implements Serializable {
+public class NewRegistration implements Serializable {
 
     private String userId;
 
@@ -13,7 +13,7 @@ public class newRegistration implements Serializable {
 
     ArrayList<String> dataList;
 
-    public newRegistration(){
+    public NewRegistration(){
         dataList = new ArrayList<>();
     }
 

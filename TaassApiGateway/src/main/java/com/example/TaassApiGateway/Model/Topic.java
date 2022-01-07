@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class topic implements Serializable {
+public class Topic implements Serializable {
 
 
     private Long id;
@@ -17,17 +17,17 @@ public class topic implements Serializable {
 
     private LocalDate creationDate;//data di creazione
 
-    private ArrayList<dataInfoPair> nameType;
+    private ArrayList<DataInfoPair> nameType;
 
     private ArrayList<String> color;
 
-    private ArrayList<registration> listRegistrazioni;//lista di future registrazioni
+    private ArrayList<Registration> listRegistrazioni;//lista di future registrazioni
 
     private Long numberRecords;
 
     private Boolean shared;
 
-    public topic(String name, String description, ArrayList<String> colors, ArrayList<dataInfoPair> nameType, Boolean shared){
+    public Topic(String name, String description, ArrayList<String> colors, ArrayList<DataInfoPair> nameType, Boolean shared){
         this.name = name;
         this.description = description;
         this.creationDate = LocalDate.now();
@@ -38,7 +38,7 @@ public class topic implements Serializable {
         this.shared = shared;
     }
 
-    public void setListRegistrazioni(ArrayList<registration> listRegistrazioni) {
+    public void setListRegistrazioni(ArrayList<Registration> listRegistrazioni) {
         this.listRegistrazioni = listRegistrazioni;
     }
 
@@ -62,11 +62,11 @@ public class topic implements Serializable {
         this.description = description;
     }
 
-    public void setNameType(ArrayList<dataInfoPair> nameType) {
+    public void setNameType(ArrayList<DataInfoPair> nameType) {
         this.nameType = nameType;
     }
 
-    public ArrayList<dataInfoPair> getNameType() {
+    public ArrayList<DataInfoPair> getNameType() {
         return nameType;
     }
 
@@ -86,7 +86,7 @@ public class topic implements Serializable {
         return description;
     }
 
-    public ArrayList<registration> getListRegistrazioni() {
+    public ArrayList<Registration> getListRegistrazioni() {
         return listRegistrazioni;
     }
 
@@ -127,7 +127,7 @@ public class topic implements Serializable {
 
 
     //se ritorna true il nome per il topic é gia preso
-    public static boolean exist(ArrayList<topic> topic,String name){
+    public static boolean exist(ArrayList<Topic> topic, String name){
         for(int a=0;a<topic.size();++a){
             if (topic.get(a).getName().equals(name)) {
                 return true;

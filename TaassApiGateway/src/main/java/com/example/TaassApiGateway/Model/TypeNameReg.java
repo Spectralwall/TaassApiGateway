@@ -1,9 +1,9 @@
 package com.example.TaassApiGateway.Model;
 
-public class typeNameReg<T> {
+public class TypeNameReg<T> {
     private String name;
     private T val;
-    public typeNameReg(String name, T val){
+    public TypeNameReg(String name, T val){
         this.name = name;
         this.val=val;
     }

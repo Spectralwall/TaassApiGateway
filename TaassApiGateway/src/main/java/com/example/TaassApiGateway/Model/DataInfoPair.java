@@ -7,18 +7,18 @@ package com.example.TaassApiGateway.Model;
 
 import java.io.Serializable;
 
-public class dataInfoPair implements Serializable {
+public class DataInfoPair implements Serializable {
 
     private String name;
 
     private String data;
 
-    public dataInfoPair(String name, String type){
+    public DataInfoPair(String name, String type){
         this.name = name;
         this.data = type;
     }
 
-    public dataInfoPair(){}
+    public DataInfoPair(){}
 
     public String getName() {
         return name;
