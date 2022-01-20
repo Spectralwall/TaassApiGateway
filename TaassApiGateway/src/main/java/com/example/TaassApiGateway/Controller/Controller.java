@@ -198,12 +198,12 @@ public class Controller {
     }
 
     @PostMapping(value = "/newReg")
-    public ResponseEntity<UserData> newReg(@RequestBody NewRegistration newReg) {
+    public ResponseEntity<String> newReg(@RequestBody NewRegistration newReg) {
 
         System.out.println("Nuova Registrazione : " + newReg);
         String url = "http://microservicedata:8082/api/v2/data/newRegi";
 
-        ResponseEntity<UserData> response = this.restTemplate.postForEntity(url,newReg, UserData.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newReg, String.class);
 
         System.out.println("user data : " + response.getBody());
 
