@@ -170,12 +170,12 @@ public class Controller {
     }
 
     @PostMapping(value = "/newTopic")
-    public ResponseEntity<UserData> newTopics(@RequestBody NewTopic newTopic) {
+    public ResponseEntity<String> newTopics(@RequestBody NewTopic newTopic) {
 
         System.out.println("Nuovo Topic");
         String url = "http://microservicedata:8082/api/v2/data/newTopic";
 
-        ResponseEntity<UserData> response = this.restTemplate.postForEntity(url,newTopic, UserData.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity(url,newTopic, String.class);
 
         System.out.println("RESPONSE");
         System.out.println(response);
@@ -185,7 +185,7 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         }
 
-        return new ResponseEntity<UserData>(response.getBody(), HttpStatus.OK);
+        return new ResponseEntity<String>(response.getBody(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/topicUser")
